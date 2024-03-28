@@ -1,10 +1,10 @@
 
 spring:
  datasource:
-  url: jdbc:postgresql://192.168.43.248:5432/recouvrex
+  url: jdbc:postgresql://localhost:5432/recouvrex
   driver-class-name: org.postgresql.Driver
-  username: postgresadmin
-  password: password
+  username: postgres
+  password: admin
 
  #security.oauth2.resourceserver.jwt.issuer-uri: http://192.168.43.248:8080/auth/realms/recouvrex
  #security.oauth2.resourceserver.jwt.jwk-set-uri: http://192.168.43.248:8080/auth/realms/recouvrex/protocol/openid-connect/certs
@@ -16,10 +16,10 @@ spring:
    database-platform: org.hibernate.dialect.PostgreSQLDialect
    datasource:
      type: com.zaxxer.hikari.HikariDataSource
-     url: jdbc:postgresql://192.168.43.248:5432/recouvrex
+     url: jdbc:postgresql://localhost:5432/recouvrex
      driver-class-name: org.postgresql.Driver
-     username: postgresadmin
-     password: password
+     username: postgres
+     password: admin
    show-sql: true
    properties:
      hibernate:
