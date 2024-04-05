@@ -15,7 +15,9 @@ import org.camunda.bpm.engine.runtime.Execution;
 import org.camunda.bpm.engine.runtime.ProcessInstanceWithVariables;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -128,4 +130,40 @@ public class CaseServiceImpl implements CaseService {
     public List<Case> filterCaseByUserId(Long userId) {
         return caseRepository.findByUserId(userId);
     }
-}
+
+    //MULTI CRITERIA IMPL
+    @Override
+        public List<Case> findCaseByMultiCriteria(String firstName, String lastName, Long thirdPartyId, Long caseId, String caseStatus) {
+        Specification<Case> spec = Specification.where(null);
+
+        if (!StringUtils.isEmpty(firstName)) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("thirdParty").get("firstName"), "%" + firstName + "%"));
+        }
+
+        if (!StringUtils.isEmpty(lastName)) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("thirdParty").get("lastName"), "%" + lastName + "%"));
+        }
+
+        if (thirdPartyId != null) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("thirdParty").get("id"), thirdPartyId));
+        }
+
+        if (caseId != null) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("id"), caseId));
+        }
+
+        if (!StringUtils.isEmpty(caseStatus)) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("status").get("status"),"%" + caseStatus + "%"));
+        }
+
+        return caseRepository.findAll(spec);
+    }
+
+    }
+
+

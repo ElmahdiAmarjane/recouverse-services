@@ -4,12 +4,14 @@ import com.recouvrex.process.model.Case;
 import com.recouvrex.process.model.User;
 import com.recouvrex.process.model.enums.StatusEnum;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CaseRepository extends JpaRepository <Case, Long> {
+public interface CaseRepository extends JpaRepository <Case, Long> , JpaSpecificationExecutor<Case> {
 
 	List<Case> findByCaseId(String caseId);
 
@@ -23,5 +25,7 @@ public interface CaseRepository extends JpaRepository <Case, Long> {
 //	List<Case> findByUserId(@Param("userId") String userId);
 @Query(value = "SELECT * FROM collect_case c WHERE c.user_id = :userId", nativeQuery = true)
 List<Case> findByUserId(@Param("userId") Long userId);
+
+	//List<Case> findCaseByMultiCriteria(Specification<Case> spec);
 
 }

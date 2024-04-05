@@ -5,6 +5,7 @@ import com.recouvrex.process.model.User;
 import com.recouvrex.process.model.enums.FollowingActionEnum;
 import com.recouvrex.process.model.enums.ProcessingActionEnum;
 import com.recouvrex.process.model.enums.StatusEnum;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +31,7 @@ public interface CaseService {
 	Case processCollectAction(String caseId, Long procedureId, Long statusId, ProcessingActionEnum processingAction);
 
 	List<Case> filterCaseByUserId(Long userId);
+
+	List<Case> findCaseByMultiCriteria(String firstName, String lastName, Long thirdPartyId, Long caseId, String caseStatus);
 
 }

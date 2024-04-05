@@ -124,5 +124,16 @@ public class CaseController {
 		System.out.println(userId);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 	}
+	@GetMapping("/filter/{caseId}/status/{status}/firstname/{firstname}/lastname{lastname}/thirdPartyId{thirdPartyId}")
+	public ResponseEntity<List<Case>> filterCaseByMultiCriteria(
+			@RequestParam(name = "caseId", required = false) Long caseId,
+			@RequestParam(name = "firstname", required = false) String firstname,
+			@RequestParam(name = "lastname", required = false) String lastname,
+			@RequestParam(name = "status", required = false) String status,
+			@RequestParam(name = "thirdPartyId", required = false) Long thirdPartyId) {
+		List<Case> caseList = caseService.findCaseByMultiCriteria(firstname, lastname, thirdPartyId, caseId, status);
+		System.out.println("status: "+status);
+		return new ResponseEntity<>(caseList, HttpStatus.OK);
+	}
 
 }
