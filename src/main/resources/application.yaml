@@ -35,7 +35,7 @@ camunda:
       password: demo
       email: ufo@andromeda.com
       first-name: Andromeda
-      last-name: Galaxy
+      last-name: Galaxyç
     database:
       schema-update: true
     filter:

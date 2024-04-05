@@ -1,6 +1,7 @@
 package com.recouvrex.process.service.impl;
 
 import com.recouvrex.process.model.Case;
+import com.recouvrex.process.model.User;
 import com.recouvrex.process.model.enums.FollowingActionEnum;
 import com.recouvrex.process.model.enums.ProcessingActionEnum;
 import com.recouvrex.process.model.enums.StatusEnum;
@@ -120,5 +121,11 @@ public class CaseServiceImpl implements CaseService {
     @Override
     public Case processCollectAction(String caseId, Long procedureId, Long statusId, ProcessingActionEnum processingAction) {
         return null;
+    }
+
+
+    @Override
+    public List<Case> filterCaseByUserId(Long userId) {
+        return caseRepository.findByUserId(userId);
     }
 }

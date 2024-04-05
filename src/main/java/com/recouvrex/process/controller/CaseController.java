@@ -109,6 +109,20 @@ public class CaseController {
 	public ResponseEntity<List<Case>> filterCase(@PathVariable("caseId") String caseId, @PathVariable("status") Long statusId, @PathVariable("procedure") Long procedureId) {
 		List<Case> caseList = caseService.filterCase(caseId, statusId, procedureId);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
+
+	}
+
+	@Operation(summary = "Filter on cases"
+			, security = @SecurityRequirement(name = "bearerAuth"))
+	@ApiResponses({
+			@ApiResponse(responseCode = "201", content = {
+					@Content(schema = @Schema(implementation = Case.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@GetMapping("/filter/{userId}")
+	public ResponseEntity<List<Case>> filterCaseByUserId(@PathVariable("userId") Long userId) {
+		List<Case> caseList = caseService.filterCaseByUserId(userId);
+		System.out.println(userId);
+		return new ResponseEntity<>(caseList, HttpStatus.OK);
 	}
 
 }

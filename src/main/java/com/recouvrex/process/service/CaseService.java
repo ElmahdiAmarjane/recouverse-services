@@ -1,6 +1,7 @@
 package com.recouvrex.process.service;
 
 import com.recouvrex.process.model.Case;
+import com.recouvrex.process.model.User;
 import com.recouvrex.process.model.enums.FollowingActionEnum;
 import com.recouvrex.process.model.enums.ProcessingActionEnum;
 import com.recouvrex.process.model.enums.StatusEnum;
@@ -27,4 +28,7 @@ public interface CaseService {
     Case processCollectAction(String caseId, ProcessingActionEnum processingAction, Long statusId);
 
 	Case processCollectAction(String caseId, Long procedureId, Long statusId, ProcessingActionEnum processingAction);
+
+	List<Case> filterCaseByUserId(Long userId);
+
 }
