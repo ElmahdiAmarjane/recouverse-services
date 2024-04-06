@@ -23,9 +23,12 @@ public interface CaseRepository extends JpaRepository <Case, Long> , JpaSpecific
 
 //	@Query("SELECT c from Case c WHERE c.user.userId = :userId")
 //	List<Case> findByUserId(@Param("userId") String userId);
-@Query(value = "SELECT * FROM collect_case c WHERE c.user_id = :userId", nativeQuery = true)
+@Query(value = "SELECT * FROM collect_case c WHERE c.user_id = :userId LIMIT 100", nativeQuery = true)
 List<Case> findByUserId(@Param("userId") Long userId);
 
 	//List<Case> findCaseByMultiCriteria(Specification<Case> spec);
 
+	//SELECT status, COUNT(*) AS count
+	//FROM votre_table
+	//GROUP BY status;
 }

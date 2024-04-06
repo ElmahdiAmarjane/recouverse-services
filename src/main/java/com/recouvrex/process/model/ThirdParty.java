@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 //Classe Tiers
 @Data
@@ -64,5 +66,8 @@ public class ThirdParty extends BaseEntity {
     private LocalDate supportingDocumentExpirationDate; //Date d'expiration piece justificative
 
     private String maritalStatus;
+
+    @OneToMany(mappedBy = "thirdParty", cascade = CascadeType.ALL)
+    private List<Contract> contracts = new ArrayList<>();
 
 }
