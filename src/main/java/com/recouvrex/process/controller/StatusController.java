@@ -4,6 +4,7 @@ import com.recouvrex.process.model.Status;
 import com.recouvrex.process.model.Task;
 import com.recouvrex.process.service.StatusService;
 import com.recouvrex.process.service.TaskService;
+import com.recouvrex.process.utils.CountCasesStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,7 +29,7 @@ public class StatusController {
 	StatusService statusService;
 
 
-	@Operation(summary = "Create a new Tutorial"
+	/*@Operation(summary = "Create a new Tutorial"
 	, security = @SecurityRequirement(name = "bearerAuth"))
 	@ApiResponses({
 					@ApiResponse(responseCode = "201", content = {
@@ -45,7 +46,7 @@ public class StatusController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+*/
     @Operation(summary = "Retrieve all Status"
 			, security = @SecurityRequirement(name = "bearerAuth"))
 	@ApiResponses({
@@ -57,6 +58,19 @@ public class StatusController {
 	@GetMapping("/")
 	public ResponseEntity<List<Status>> listStatus() {
 		return new ResponseEntity<>(statusService.listStatus(), HttpStatus.OK);
+	}
+
+	@Operation(summary = "Retrieve count Status"
+			, security = @SecurityRequirement(name = "bearerAuth"))
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Status.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "204", description = "No status found", content = {
+					@Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@GetMapping("/countStatus/{userId}")
+	public ResponseEntity<List<CountCasesStatus>> findStatusCount(@PathVariable("userId") Long userId) {
+		return new ResponseEntity<>(statusService.findStatusCounts(userId), HttpStatus.OK);
 	}
 	/*
 	@Operation(summary = "Delete a Tutorial by Id", tags = { "tutorials", "delete" },

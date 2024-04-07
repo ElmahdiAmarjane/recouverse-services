@@ -28,7 +28,5 @@ List<Case> findByUserId(@Param("userId") Long userId);
 
 	//List<Case> findCaseByMultiCriteria(Specification<Case> spec);
 
-	//SELECT status, COUNT(*) AS count
-	//FROM votre_table
-	//GROUP BY status;
+
 }
