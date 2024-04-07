@@ -12,15 +12,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class CountCasesStatus implements Serializable {
-   /* int nbrPreDouteux ;
-    int nbrDouteux ;
-    int nbrComiteImpayes;
-    int nbrComiteDeclassementAgence;
-    int nbrRadie ;
-    int nbrPreContentieux ;
-    int nbrContentieux;
-    int nbrSaisieConservationImmobiliereInitiee ;
-    int nbrTermine;*/
 
     String status;
     Long count;

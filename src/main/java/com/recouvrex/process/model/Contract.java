@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +22,11 @@ public class Contract extends BaseEntity{
 
 
     private String contractId;
+
     @ManyToOne
     @JoinColumn(name = "thirdparty_id")
     private ThirdParty thirdParty;
+
+    private LocalDateTime createdOn;
+
 }
