@@ -1,13 +1,25 @@
 package com.recouvrex.process.service.impl;
 
 import com.recouvrex.process.model.Case;
-import com.recouvrex.process.model.User;
+import com.recouvrex.process.model.Procedure;
+import com.recouvrex.process.model.Status;
 import com.recouvrex.process.model.enums.FollowingActionEnum;
 import com.recouvrex.process.model.enums.ProcessingActionEnum;
 import com.recouvrex.process.model.enums.StatusEnum;
 import com.recouvrex.process.repository.CaseRepository;
+import com.recouvrex.process.repository.ProcedureRepository;
+import com.recouvrex.process.repository.StatusRepository;
 import com.recouvrex.process.service.CaseService;
+import com.recouvrex.process.utils.CaseSpecifications;
 import com.recouvrex.process.utils.IdentificationTool;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
@@ -17,7 +29,6 @@ import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +39,12 @@ public class CaseServiceImpl implements CaseService {
 
     @Autowired
     CaseRepository caseRepository;
+
+    @Autowired
+    StatusRepository statusRepository;
+
+    @Autowired
+    ProcedureRepository procedureRepository;
 
     @Autowired
     RuntimeService runtimeService;
@@ -101,8 +118,9 @@ public class CaseServiceImpl implements CaseService {
         return (Case) runtimeService.getVariable(execution.getId(), "case");
     }
     @Override
-    public List<Case> filterCase(String caseId, Long statusId, Long procedureId){
-        return  caseRepository.findByCaseIdContainingAndStatusAndProcedure( caseId, statusId, procedureId);
+    public List<Case> filterCase(String caseId, Long statusId, Long procedureId, Long userId){
+        Specification<Case> spec = CaseSpecifications.withCriteria(caseId, statusId, procedureId, userId);
+        return caseRepository.findAll(spec);
     }
 
     @Override
@@ -128,43 +146,16 @@ public class CaseServiceImpl implements CaseService {
 
     @Override
     public List<Case> filterCaseByUserId(Long userId) {
-        return caseRepository.findByUserId(userId);
+        return null;
     }
 
-    //MULTI CRITERIA IMPL
+
     @Override
-        public List<Case> findCaseByMultiCriteria(String firstName, String lastName, Long thirdPartyId, Long caseId, String caseStatus) {
-        Specification<Case> spec = Specification.where(null);
-
-        if (!StringUtils.isEmpty(firstName)) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("thirdParty").get("firstName"), "%" + firstName + "%"));
-        }
-
-        if (!StringUtils.isEmpty(lastName)) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("thirdParty").get("lastName"), "%" + lastName + "%"));
-        }
-
-        if (thirdPartyId != null) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("thirdParty").get("id"), thirdPartyId));
-        }
-
-        if (caseId != null) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("id"), caseId));
-        }
-
-        if (!StringUtils.isEmpty(caseStatus)) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("status").get("status"),"%" + caseStatus + "%"));
-        }
-
-        return caseRepository.findAll(spec);
+    public List<Case> findCaseByMultiCriteria(String firstName, String lastName, Long thirdPartyId, Long caseId, String caseStatus) {
+        return null;
     }
 
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    }
-
-
+}

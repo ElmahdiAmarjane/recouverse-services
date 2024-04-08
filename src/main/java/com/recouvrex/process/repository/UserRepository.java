@@ -11,8 +11,9 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository <User, Long> {
 
-	List<User> findByIdentificationNumber(String identificationNumber);
+	List<User> findAll();
 
 	@Query(value = "SELECT * FROM user u WHERE  u.profile_id = :profileId", nativeQuery = true)
-	List<Case> findByProfile(Long profileId);
+	List<User> findByProfile(Long profileId);
+
 }

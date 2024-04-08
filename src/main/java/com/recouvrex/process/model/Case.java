@@ -1,6 +1,5 @@
 package com.recouvrex.process.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,13 +29,10 @@ public class Case extends BaseEntity {
     @JoinColumn(name="thirdparty_id")
     private ThirdParty thirdParty;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    @JsonBackReference
-    private User user;
-
-
-
+    private User assignedAgent;
 
     private LocalDate startDate; //Date de début
 
