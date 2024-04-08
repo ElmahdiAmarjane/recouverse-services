@@ -16,7 +16,7 @@ public interface StatusRepository extends JpaRepository <Status, Long> {
     List<CountCasesStatus> findStatusCounts(@Param("userId") Long userId);*/
     @Query("SELECT NEW com.recouvrex.process.utils.CountCasesStatus(s.status, COUNT(c)) " +
             "FROM Case c JOIN c.status s " +
-            "WHERE c.user.id = :userId " +
+            "WHERE c.assignedAgent.id = :userId " +
             "GROUP BY s.status")
     List<CountCasesStatus> findStatusCounts(@Param("userId") Long userId);
 
