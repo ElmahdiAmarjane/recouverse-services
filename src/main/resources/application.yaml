@@ -1,10 +1,14 @@
 
 spring:
  datasource:
-  url: jdbc:postgresql://localhost:5432/recouvrex
+  # url: jdbc:postgresql://localhost:5432/recouvrex
+  url: jdbc:postgresql://slim-weredog-14313.8nj.gcp-europe-west1.cockroachlabs.cloud:26257/defaultdb
+
   driver-class-name: org.postgresql.Driver
-  username: postgres
-  password: admin
+  # username: postgres
+  username: postgresadmin
+  # password: password
+  password: RXoCBpozf686k6ov9ShL2w
 
  #security.oauth2.resourceserver.jwt.issuer-uri: http://192.168.43.248:8080/auth/realms/recouvrex
  #security.oauth2.resourceserver.jwt.jwk-set-uri: http://192.168.43.248:8080/auth/realms/recouvrex/protocol/openid-connect/certs
@@ -16,10 +20,13 @@ spring:
    database-platform: org.hibernate.dialect.PostgreSQLDialect
    datasource:
      type: com.zaxxer.hikari.HikariDataSource
-     url: jdbc:postgresql://localhost:5432/recouvrex
+    #  url: jdbc:postgresql://localhost:5432/recouvrex
+     url: jdbc:postgresql://slim-weredog-14313.8nj.gcp-europe-west1.cockroachlabs.cloud:26257/defaultdb
      driver-class-name: org.postgresql.Driver
-     username: postgres
-     password: admin
+    #  username: postgres
+     username: postgresadmin
+    #  password: password
+     password: RXoCBpozf686k6ov9ShL2w
    show-sql: true
    properties:
      hibernate:
