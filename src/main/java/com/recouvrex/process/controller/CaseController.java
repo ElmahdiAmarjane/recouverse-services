@@ -109,8 +109,13 @@ public class CaseController {
 	public ResponseEntity<List<Case>> filterCase(@RequestParam(value = "caseId", required = false) String caseId,
 												 @RequestParam(value = "status", required = false) Long statusId,
 												 @RequestParam(value = "procedure", required = false) Long procedureId,
-												 @RequestParam(value = "assignedTo", required = false) Long userId) {
-		List<Case> caseList = caseService.filterCase(caseId, statusId, procedureId, userId);
+												 @RequestParam(value = "assignedTo", required = false) Long userId,
+												 @RequestParam(value = "firstname", required = false) String firstname,
+												 @RequestParam(value = "lastname", required = false) String lastname,
+	                                             @RequestParam(value = "contractId", required = false) String contractId,
+	                                             @RequestParam(value = "thirdPartyId", required = false) String thirdPartyId){
+
+		List<Case> caseList = caseService.filterCase(caseId, statusId, procedureId, userId,firstname,lastname,contractId,thirdPartyId);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 
 	}

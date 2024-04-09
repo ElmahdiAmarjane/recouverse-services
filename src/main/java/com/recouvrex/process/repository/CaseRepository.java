@@ -18,5 +18,11 @@ public interface CaseRepository extends JpaRepository <Case, Long>, JpaSpecifica
 
 	@Query(value = "SELECT * FROM collect_case c WHERE LOWER(c.case_id) LIKE LOWER(CONCAT('%', :caseId,'%')) AND (c.status_id) = :statusId AND (c.procedure_id) = :procedureId", nativeQuery = true)
 	List<Case> findByCaseIdContainingAndStatusAndProcedure(String caseId, Long statusId, Long procedureId);
-	
+
+	@Query(value = "SELECT * FROM collect_case c WHERE c.user_id = :userId", nativeQuery = true)
+	List<Case> findByUserId(@Param("userId") Long userId);
+
+
+
+
 }

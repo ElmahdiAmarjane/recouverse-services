@@ -1,5 +1,6 @@
 package com.recouvrex.process.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="contrat")
+@Table(name="contract")
 public class Contract extends BaseEntity{
 
 
@@ -25,6 +26,7 @@ public class Contract extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "thirdparty_id")
+    @JsonBackReference
     private ThirdParty thirdParty;
 
     private LocalDateTime createdOn;

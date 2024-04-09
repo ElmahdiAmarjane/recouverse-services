@@ -1,5 +1,6 @@
 package com.recouvrex.process.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.recouvrex.process.model.enums.DocumentTypesEnum;
 import com.recouvrex.process.model.enums.ThirdPartyTypesEnum;
 import jakarta.persistence.*;
@@ -67,7 +68,8 @@ public class ThirdParty extends BaseEntity {
 
     private String maritalStatus;
 
-    @OneToMany(mappedBy = "thirdParty", cascade = CascadeType.ALL)
-    private List<Contract> contracts = new ArrayList<>();
+   /* @OneToMany(mappedBy = "thirdParty", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Contract> contracts = new ArrayList<>();*/
 
 }

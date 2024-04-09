@@ -118,8 +118,8 @@ public class CaseServiceImpl implements CaseService {
         return (Case) runtimeService.getVariable(execution.getId(), "case");
     }
     @Override
-    public List<Case> filterCase(String caseId, Long statusId, Long procedureId, Long userId){
-        Specification<Case> spec = CaseSpecifications.withCriteria(caseId, statusId, procedureId, userId);
+    public List<Case> filterCase(String caseId, Long statusId, Long procedureId, Long userId, String firstname , String lastname , String contractId , String thirdPartyId){
+        Specification<Case> spec = CaseSpecifications.withCriteria(caseId, statusId, procedureId, userId,  firstname ,  lastname ,  contractId ,  thirdPartyId);
         return caseRepository.findAll(spec);
     }
 
@@ -146,14 +146,43 @@ public class CaseServiceImpl implements CaseService {
 
     @Override
     public List<Case> filterCaseByUserId(Long userId) {
-        return null;
+        return  caseRepository.findByUserId(userId);
     }
 
 
     @Override
     public List<Case> findCaseByMultiCriteria(String firstName, String lastName, Long thirdPartyId, Long caseId, String caseStatus) {
-        return null;
+        Specification<Case> spec = Specification.where(null);
+
+        if (!StringUtils.isEmpty(firstName)) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("thirdParty").get("firstName"), "%" + firstName + "%"));
+        }
+
+        if (!StringUtils.isEmpty(lastName)) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("thirdParty").get("lastName"), "%" + lastName + "%"));
+        }
+
+        if (thirdPartyId != null) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("thirdParty").get("id"), thirdPartyId));
+        }
+
+        if (caseId != null) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("id"), caseId));
+        }
+
+        if (!StringUtils.isEmpty(caseStatus)) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("status").get("status"),"%" + caseStatus + "%"));
+        }
+
+        return caseRepository.findAll(spec);
+
     }
+
 
     @PersistenceContext
     private EntityManager entityManager;

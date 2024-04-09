@@ -14,4 +14,5 @@ public class Procedure extends BaseEntity {
 
 
     private String procedureLabel;
+
 }
