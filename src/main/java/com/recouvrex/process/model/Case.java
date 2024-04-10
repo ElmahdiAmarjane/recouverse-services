@@ -16,7 +16,7 @@ public class Case extends BaseEntity {
 
     private String caseId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
