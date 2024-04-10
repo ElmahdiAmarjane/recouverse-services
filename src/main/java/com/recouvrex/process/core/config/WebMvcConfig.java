@@ -17,6 +17,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         .allowedHeaders("*")
         .allowCredentials(false)
         .maxAge(-1);
-        System.out.println("\n\n\n----------------------------------------------------------------\nhello ayoub\n\n\n");
-  }
+        }
 }
