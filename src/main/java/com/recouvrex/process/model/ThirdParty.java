@@ -22,6 +22,7 @@ import java.util.List;
 @Table(name="thirdparty")
 public class ThirdParty extends BaseEntity {
 
+    private String thirdPartyId;
     @Enumerated(EnumType.STRING)
     private ThirdPartyTypesEnum tiersType;
 

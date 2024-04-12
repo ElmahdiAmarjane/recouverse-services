@@ -106,16 +106,18 @@ public class CaseController {
 					@Content(schema = @Schema(implementation = Case.class), mediaType = "application/json") }),
 			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping("/filter/")
-	public ResponseEntity<List<Case>> filterCase(@RequestParam(value = "caseId", required = false) String caseId,
-												 @RequestParam(value = "status", required = false) Long statusId,
-												 @RequestParam(value = "procedure", required = false) Long procedureId,
-												 @RequestParam(value = "assignedTo", required = false) Long userId,
-												 @RequestParam(value = "firstname", required = false) String firstname,
-												 @RequestParam(value = "lastname", required = false) String lastname,
-	                                             @RequestParam(value = "contractId", required = false) String contractId,
-	                                             @RequestParam(value = "thirdPartyId", required = false) String thirdPartyId){
+	public ResponseEntity<List<Case>> filterCase(
+			@RequestParam(value = "userConnectedId") Long userConnectedId,
+			@RequestParam(value = "caseId", required = false) String caseId,
+			@RequestParam(value = "status", required = false) Long statusId,
+			@RequestParam(value = "procedure", required = false) Long procedureId,
+			@RequestParam(value = "assignedTo", required = false) Long userId,
+			@RequestParam(value = "firstname", required = false) String firstname,
+			@RequestParam(value = "lastname", required = false) String lastname,
+			@RequestParam(value = "contractId", required = false) String contractId,
+			@RequestParam(value = "thirdPartyId", required = false) String thirdPartyId){
 
-		List<Case> caseList = caseService.filterCase(caseId, statusId, procedureId, userId,firstname,lastname,contractId,thirdPartyId);
+		List<Case> caseList = caseService.filterCase( userConnectedId, userId,  caseId,  statusId,  procedureId, firstname ,  lastname , contractId ,  thirdPartyId);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 
 	}
@@ -132,6 +134,7 @@ public class CaseController {
 		System.out.println(userId);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 	}
+
 	@GetMapping("/filter/{caseId}/status/{status}/firstname/{firstname}/lastname{lastname}/thirdPartyId{thirdPartyId}")
 	public ResponseEntity<List<Case>> filterCaseByMultiCriteria(
 			@RequestParam(name = "caseId", required = false) Long caseId,

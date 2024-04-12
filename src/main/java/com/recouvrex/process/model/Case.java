@@ -16,7 +16,7 @@ public class Case extends BaseEntity {
 
     private String caseId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
@@ -48,6 +48,8 @@ public class Case extends BaseEntity {
 
     private BigDecimal insuranceSettlementAmout; //Le montant à récupérer auprès de l'assurance
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="contributor_id")
     private Contributor contributor;
 }
 

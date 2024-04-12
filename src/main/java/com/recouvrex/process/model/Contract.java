@@ -26,7 +26,7 @@ public class Contract extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "thirdparty_id")
-    @JsonBackReference
+   // @JsonBackReference
     private ThirdParty thirdParty;
 
     private LocalDateTime createdOn;
