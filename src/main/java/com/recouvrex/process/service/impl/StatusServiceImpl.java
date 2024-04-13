@@ -26,10 +26,6 @@ public class StatusServiceImpl implements StatusService {
 
     public List<CountCasesStatus> findStatusCounts(Long userId){
 
-
-        System.out.println(statusRepository.findStatusCounts(userId));
-
-
         return statusRepository.findStatusCounts(userId);
 
 

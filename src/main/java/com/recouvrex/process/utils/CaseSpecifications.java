@@ -70,10 +70,10 @@ public class CaseSpecifications {
             if (thirdPartyId != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("thirdPartyId"), "%" + thirdPartyId + "%"));
             }
-           /* if (userId != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("assignedAgent").get("id"), "%" + userId + "%"));
+            if (userId != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("assignedAgent").get("id"), userId));
             }
-*/
+
 
             return predicate;
         };

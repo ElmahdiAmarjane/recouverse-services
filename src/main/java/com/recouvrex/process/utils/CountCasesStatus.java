@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class CountCasesStatus implements Serializable {
-
+    Long id;
     String status;
     Long count;
 }
