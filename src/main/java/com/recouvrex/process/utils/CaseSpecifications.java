@@ -79,7 +79,8 @@ public class CaseSpecifications {
             return predicate;
         };
     }
-    /*public static Specification<Case> withCriteriaOneString(Long userConnectedId, String searchText) {
+    /*
+    public static Specification<Case> withCriteriaOneString(Long userConnectedId, String searchText) {
         return (Root<Case> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             Predicate predicate = casesForUsers(userConnectedId, root, query, criteriaBuilder);
 
@@ -99,7 +100,7 @@ public class CaseSpecifications {
             if (searchText != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("lastName"), "%" + searchText + "%"));
             }
-         *//*   if (contractId != null) {
+            if (contractId != null) {
                 // Subquery to select the thirdpartyId based on the contractId
                 Subquery<Long> thirdPartyIdSubquery = query.subquery(Long.class);
                 Root<Contract> contractRoot = thirdPartyIdSubquery.from(Contract.class);
@@ -117,7 +118,7 @@ public class CaseSpecifications {
             if (userId != null) {
                 predicate = criteriaBuilder.or(predicate, criteriaBuilder.equal(root.get("assignedAgent").get("id"), userId));
             }
-*//*
+
 
             return predicate;
         };
@@ -164,10 +165,12 @@ public class CaseSpecifications {
     }
 */
 
-    public static Specification<Case> withCriteriaOneString(Long userConnectedId, String searchText) {
+    public static Specification<Case> withCriteriaOneString(Long userConnectedId, Long statusId,String searchText) {
         return (Root<Case> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             Predicate predicate = casesForUsers(userConnectedId, root, query, criteriaBuilder);
-
+            if (statusId != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status").get("id"), statusId));
+            }
             // Add your additional search conditions based on the provided searchText
             if (!StringUtils.isBlank(searchText)) {
                 // Parse searchText to check if it's a Long or String

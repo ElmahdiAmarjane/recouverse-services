@@ -124,9 +124,10 @@ public class CaseController {
 	@GetMapping("/filterOne/")
 	public ResponseEntity<List<Case>> filterCaseOneString(
 			@RequestParam(value = "userConnectedId") Long userConnectedId,
-			@RequestParam(value = "searchText", required = false) String searchText){
+			@RequestParam(value = "searchText", required = false) String searchText,
+			@RequestParam(value = "statusId", required = false) Long statusId){
 
-		List<Case> caseList = caseService.filterCaseOneCriteria(userConnectedId,searchText);
+		List<Case> caseList = caseService.filterCaseOneCriteria(userConnectedId,statusId,searchText);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 
 	}
