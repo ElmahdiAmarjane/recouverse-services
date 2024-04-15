@@ -175,7 +175,7 @@ public class CaseSpecifications {
                     Long value = Long.parseLong(searchText);
                     // If successful, it's a Long
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(
-                            criteriaBuilder.equal(root.get("status").get("id"), value),
+                           // criteriaBuilder.equal(root.get("status").get("id"), value),
                             criteriaBuilder.equal(root.get("procedure").get("id"), value),
                             criteriaBuilder.equal(root.get("assignedAgent").get("id"), value)
                     ));
@@ -185,6 +185,7 @@ public class CaseSpecifications {
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("caseId")), "%" + searchTextLower + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("firstName")), "%" + searchTextLower + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("status").get("status")), "%" + searchTextLower + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("lastName")), "%" + searchTextLower + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("thirdPartyId")), "%" + searchTextLower + "%"),
                             // Handle contractId using subquery
