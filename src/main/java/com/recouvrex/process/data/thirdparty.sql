@@ -115,3 +115,33 @@ INSERT INTO public.thirdparty (
 (9, '1980-09-09', 'email9@example.com', '901-234-5678', 'Agriculture', 'REG901234', 'Company Nine', 'India', '901-234-5679', 'Priya', '901-234-5680', 'Kumar', 'Pvt Ltd', 'Married', 'Indian', 'Farmer', 'priya.kumar@example.com', '321-987-6543', '2033-09-09', 'HI9012345', 'PASSPORT', 'CUSTOMER_PP', 'Mrs.'),
 (10, '1980-10-10', 'email10@example.com', '012-345-6789', 'Real Estate', 'REG012345', 'Company Ten', 'Spain', '012-345-6790', 'Carlos', '012-345-6791', 'Garcia', 'S.L.', 'Single', 'Spanish', 'Real Estate Agent', 'carlos.garcia@example.com', '210-876-5432', '2034-10-10', 'IJ0123456', 'RESIDENCE_CARD', 'CUSTOMER_PM', 'Mr.'),
 (11, '1980-11-11', 'email11@example.com', '123-456-7890', 'Entertainment', 'REG123456', 'Company Eleven', 'United States', '123-456-7891', 'Emily', '123-456-7892', 'Davis', 'LLC', 'Divorced', 'American', 'Actor', 'emily.davis@example.com', '109-765-4321', '2035-11-11', 'JK1234567', 'CIN', 'CUSTOMER_PP', 'Ms.');
+
+
+--JSON ADD NEW CASE
+{
+  "id": 0,
+  "caseId": "string",
+  "status": {
+    "id": 3
+  },
+  "procedure": {
+    "id": 1
+  },
+  "thirdParty": {
+    "id": 2
+
+  },
+  "assignedAgent": {
+    "id": 4
+  },
+  "startDate": "2024-04-09",
+  "principalAmount": 0,
+  "interestAmount": 0,
+  "penaltyAmount": 0,
+  "totalAmount": 0,
+  "commissionAmount": 0,
+  "insuranceSettlementAmount": 0,
+  "contributor": {
+    "id": 959605411992371201
+  }
+}

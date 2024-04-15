@@ -121,6 +121,15 @@ public class CaseController {
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 
 	}
+	@GetMapping("/filterOne/")
+	public ResponseEntity<List<Case>> filterCaseOneString(
+			@RequestParam(value = "userConnectedId") Long userConnectedId,
+			@RequestParam(value = "searchText", required = false) String searchText){
+
+		List<Case> caseList = caseService.filterCaseOneCriteria(userConnectedId,searchText);
+		return new ResponseEntity<>(caseList, HttpStatus.OK);
+
+	}
 
 	@Operation(summary = "Filter on cases"
 			, security = @SecurityRequirement(name = "bearerAuth"))

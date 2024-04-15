@@ -124,6 +124,11 @@ public class CaseServiceImpl implements CaseService {
         return caseRepository.findAll(spec);
 
     }
+    public List<Case> filterCaseOneCriteria(Long userConnected,String searchText){
+        Specification<Case> spec = CaseSpecifications.withCriteriaOneString(userConnected,searchText);
+        return caseRepository.findAll(spec);
+
+    }
 
     @Override
     public Case processCollectAction(String caseId, ProcessingActionEnum processingAction, Long statusId) {

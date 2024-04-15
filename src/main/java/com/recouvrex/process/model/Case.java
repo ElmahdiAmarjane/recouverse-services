@@ -20,17 +20,17 @@ public class Case extends BaseEntity {
     @JoinColumn(name = "status_id")
     private Status status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="procedure_id")
     private Procedure procedure;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="thirdparty_id")
     private ThirdParty thirdParty;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User assignedAgent;
 
