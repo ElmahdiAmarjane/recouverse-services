@@ -176,8 +176,8 @@ public class CaseSpecifications {
                     // If successful, it's a Long
                     predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(
                            // criteriaBuilder.equal(root.get("status").get("id"), value),
-                            criteriaBuilder.equal(root.get("procedure").get("id"), value),
-                            criteriaBuilder.equal(root.get("assignedAgent").get("id"), value)
+                            criteriaBuilder.equal(root.get("procedure").get("id"), value)
+                          //  criteriaBuilder.equal(root.get("assignedAgent").get("id"), value)
                     ));
                 } catch (NumberFormatException e) {
                     // If parsing fails, it's a String
@@ -188,6 +188,8 @@ public class CaseSpecifications {
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status").get("status")), "%" + searchTextLower + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("lastName")), "%" + searchTextLower + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("thirdPartyId")), "%" + searchTextLower + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("assignedAgent").get("lastName")), "%" + searchTextLower + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("assignedAgent").get("firstName")), "%" + searchTextLower + "%"),
                             // Handle contractId using subquery
                             getContractIdPredicate(searchTextLower, root, query, criteriaBuilder)
                     ));
