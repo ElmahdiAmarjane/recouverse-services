@@ -172,33 +172,25 @@ public class CaseSpecifications {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status").get("id"), statusId));
             }
             // Add your additional search conditions based on the provided searchText
-            if (!StringUtils.isBlank(searchText)) {
-                // Parse searchText to check if it's a Long or String
-                try {
-                    Long value = Long.parseLong(searchText);
-                    // If successful, it's a Long
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(
-                           // criteriaBuilder.equal(root.get("status").get("id"), value),
-                            criteriaBuilder.equal(root.get("procedure").get("id"), value)
-                          //  criteriaBuilder.equal(root.get("assignedAgent").get("id"), value)
-                    ));
-                } catch (NumberFormatException e) {
-                    // If parsing fails, it's a String
-                    String searchTextLower = searchText.toLowerCase(); // Convert search text to lowercase
-                    predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("caseId")), "%" + searchTextLower + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("firstName")), "%" + searchTextLower + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("status").get("status")), "%" + searchTextLower + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("lastName")), "%" + searchTextLower + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("thirdPartyId")), "%" + searchTextLower + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("assignedAgent").get("lastName")), "%" + searchTextLower + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("assignedAgent").get("firstName")), "%" + searchTextLower + "%"),
-                            // Handle contractId using subquery
-                            getContractIdPredicate(searchTextLower, root, query, criteriaBuilder)
-                    ));
-                }
+               if(searchText!=null){
+                   String searchTextLower = searchText.toLowerCase(); // Convert search text to lowercase
+                   predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("caseId")), "%" + searchTextLower + "%"),
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("firstName")), "%" + searchTextLower + "%"),
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("status").get("status")), "%" + searchTextLower + "%"),
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("lastName")), "%" + searchTextLower + "%"),
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("thirdParty").get("thirdPartyId")), "%" + searchTextLower + "%"),
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("assignedAgent").get("lastName")), "%" + searchTextLower + "%"),
+                           criteriaBuilder.like(criteriaBuilder.lower(root.get("assignedAgent").get("firstName")), "%" + searchTextLower + "%"),
+                           // Handle contractId using subquery
+                           getContractIdPredicate(searchTextLower, root, query, criteriaBuilder)
+                   ));
 
-            }
+               }
+
+
+
+
 
             return predicate;
         };
