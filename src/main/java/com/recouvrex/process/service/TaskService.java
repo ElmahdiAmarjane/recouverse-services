@@ -12,6 +12,6 @@ public interface TaskService {
 
     public List<Task> findByCaseId(Long caseId);
 
-    public Task save(Task task);
+    public Task save(Task task,Long caseId);
 
     }

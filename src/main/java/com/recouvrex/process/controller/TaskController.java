@@ -30,16 +30,17 @@ public class TaskController {
 	TaskService taskService;
 
 
-	@Operation(summary = "Create a new Tutorial"
+	@Operation(summary = "Create a new Task"
 	, security = @SecurityRequirement(name = "bearerAuth"))
 	@ApiResponses({
 					@ApiResponse(responseCode = "201", content = {
 									@Content(schema = @Schema(implementation = Task.class), mediaType = "application/json") }),
 					@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@PostMapping("/Task")
-	public ResponseEntity<Task> createTask(@RequestBody Task task) {
+	public ResponseEntity<Task> createTask(@RequestBody Task task,Long caseId) {
 		try {
-			Task _task = taskService.save(task);
+
+			Task _task = taskService.save(task,caseId);
 
 			return new ResponseEntity<>(_task, HttpStatus.CREATED);
 		} catch (Exception e) {

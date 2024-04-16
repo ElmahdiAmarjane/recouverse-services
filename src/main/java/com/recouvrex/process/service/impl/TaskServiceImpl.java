@@ -6,6 +6,7 @@ import com.recouvrex.process.model.User;
 import com.recouvrex.process.repository.CaseRepository;
 import com.recouvrex.process.repository.TaskRepository;
 import com.recouvrex.process.service.TaskService;
+import com.recouvrex.process.utils.IdentificationTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,8 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByCaseIdAndUserId(caseId, userId);
     }
     @Override
-    public Task save(Task task) {
-        Case cas = caseRepository.findById(task.getCas().getId()).orElse(null);
+    public Task save(Task task,Long caseId) {
+        Case cas = caseRepository.findById(caseId).orElse(null);
         task.setCas(cas);
         return taskRepository.save(task);
     }

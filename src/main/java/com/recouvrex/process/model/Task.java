@@ -21,15 +21,15 @@ public class Task extends BaseEntity{
     private LocalDateTime enDate;
     private LocalDateTime createdOn;
     private LocalDateTime ScheduledTo;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "case_id")
     private Case cas;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
-    @ManyToOne(cascade = CascadeType.ALL)
+   /* @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
-    private Profile profile;
+    private Profile profile;*/
     private String taskObject;
 
 }
