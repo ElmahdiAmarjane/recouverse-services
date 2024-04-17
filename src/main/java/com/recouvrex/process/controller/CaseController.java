@@ -109,15 +109,14 @@ public class CaseController {
 	public ResponseEntity<List<Case>> filterCase(
 			@RequestParam(value = "userConnectedId") Long userConnectedId,
 			@RequestParam(value = "caseId", required = false) String caseId,
-			@RequestParam(value = "status", required = false) Long statusId,
-			@RequestParam(value = "procedure", required = false) Long procedureId,
-			@RequestParam(value = "assignedTo", required = false) Long userId,
-			@RequestParam(value = "firstname", required = false) String firstname,
-			@RequestParam(value = "lastname", required = false) String lastname,
-			@RequestParam(value = "contractId", required = false) String contractId,
-			@RequestParam(value = "thirdPartyId", required = false) String thirdPartyId){
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "firstnameThird", required = false) String firstnameThird,
+			@RequestParam(value = "lastnameThird", required = false) String lastnameThird,
+			@RequestParam(value = "firstnameUser", required = false) String firstnameUser,
+			@RequestParam(value = "lastnameUser", required = false) String lastnameUser,
+			@RequestParam(value = "contractId", required = false) String contractId){
 
-		List<Case> caseList = caseService.filterCase( userConnectedId, userId,  caseId,  statusId,  procedureId, firstname ,  lastname , contractId ,  thirdPartyId);
+		List<Case> caseList = caseService.filterCase(userConnectedId, caseId,  firstnameThird,  lastnameThird, firstnameUser,  lastnameUser,  contractId,  status);
 		return new ResponseEntity<>(caseList, HttpStatus.OK);
 
 	}

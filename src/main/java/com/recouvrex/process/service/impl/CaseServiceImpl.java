@@ -118,8 +118,8 @@ public class CaseServiceImpl implements CaseService {
         return (Case) runtimeService.getVariable(execution.getId(), "case");
     }
     @Override
-    public List<Case> filterCase(Long userConnected,Long userId, String caseId, Long statusId, Long procedureId,String firstname , String lastname , String contractId , String thirdPartyId){
-       Specification<Case> spec = CaseSpecifications.withCriteria(userConnected,userId, caseId, statusId, procedureId,  firstname ,  lastname ,  contractId ,  thirdPartyId);
+    public List<Case> filterCase(Long userConnectedId, String caseId, String firstnameThird, String lastnameThird,String firstnameUser, String lastnameUser, String contractId, String status){
+       Specification<Case> spec = CaseSpecifications.withCriteria( userConnectedId, caseId,  firstnameThird,  lastnameThird, firstnameUser,  lastnameUser,  contractId,  status);
        //,userId, caseId, statusId, procedureId,  firstname ,  lastname ,  contractId ,  thirdPartyId
         return caseRepository.findAll(spec);
 

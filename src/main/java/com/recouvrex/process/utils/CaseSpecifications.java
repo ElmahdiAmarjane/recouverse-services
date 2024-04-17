@@ -36,7 +36,7 @@ public class CaseSpecifications {
      return userPredicate;
  }
 
-    public static Specification<Case> withCriteria(Long userConnectedId, Long userId, String caseId, Long statusId, Long procedureId, String firstname, String lastname, String contractId, String thirdPartyId) {
+    public static Specification<Case> withCriteria(Long userConnectedId, String caseId, String firstnameThird, String lastnameThird,String firstnameUser, String lastnameUser, String contractId, String status) {
         return (Root<Case> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             Predicate predicate = casesForUsers(userConnectedId, root, query, criteriaBuilder);
 
@@ -44,17 +44,17 @@ public class CaseSpecifications {
             if (!StringUtils.isBlank(caseId)) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("caseId"), "%" + caseId + "%"));
             }
-            if (statusId != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("status").get("id"), statusId));
+            if (status != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("status").get("status"),"%" +status +"%"));
             }
-            if (procedureId != null) {
+      /*      if (procedureId != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("procedure").get("id"), procedureId));
+            }*/
+            if (firstnameThird != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("firstName"), "%" + firstnameThird + "%"));
             }
-            if (firstname != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("firstName"), "%" + firstname + "%"));
-            }
-            if (lastname != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("lastName"), "%" + lastname + "%"));
+            if (lastnameThird != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("lastName"), "%" + lastnameThird + "%"));
             }
             if (contractId != null) {
                 // Subquery to select the thirdpartyId based on the contractId
@@ -67,18 +67,19 @@ public class CaseSpecifications {
                 predicate = criteriaBuilder.and(predicate, root.get("thirdParty").get("id").in(thirdPartyIdSubquery));
             }
 
+            if (firstnameUser != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("assignedAgent").get("firstName"), "%"+firstnameUser+"%"));
+            }
+            if (lastnameUser != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("assignedAgent").get("lastName"), "%"+lastnameUser+"%"));
+            }
 
-            if (thirdPartyId != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("thirdParty").get("thirdPartyId"), "%" + thirdPartyId + "%"));
-            }
-            if (userId != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("assignedAgent").get("id"), userId));
-            }
 
 
             return predicate;
         };
     }
+
     /*
     public static Specification<Case> withCriteriaOneString(Long userConnectedId, String searchText) {
         return (Root<Case> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {

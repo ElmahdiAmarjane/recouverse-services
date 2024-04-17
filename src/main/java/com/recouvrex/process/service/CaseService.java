@@ -24,7 +24,7 @@ public interface CaseService {
 
 	Case decideOnAction(String caseId, FollowingActionEnum followingAction, Long statusId);
 
-	List<Case> filterCase(Long userConnected,Long userId, String caseId, Long statusId, Long procedureId,String firstname , String lastname , String contractId , String thirdPartyId);
+	List<Case> filterCase(Long userConnectedId, String caseId, String firstnameThird, String lastnameThird,String firstnameUser, String lastnameUser, String contractId, String status);
 	List<Case> filterCaseOneCriteria(Long userConnected,Long statusId,String searchText);
 
     Case processCollectAction(String caseId, ProcessingActionEnum processingAction, Long statusId);
